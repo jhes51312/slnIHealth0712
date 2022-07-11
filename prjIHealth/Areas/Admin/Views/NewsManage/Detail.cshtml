@@ -1,0 +1,68 @@
+﻿@model prjIHealth.Models.TNews
+
+@{
+    ViewData["Title"] = "iHeath後臺";
+    Layout = "~/Areas/Admin/Admin_Layout.cshtml";
+}
+
+<div class="contact-form spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="contact__form__title">
+                    <h2>檢視文章</h2>
+                </div>
+            </div>
+        </div>
+        <form asp-action="Details" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" value="@Model.FNewsId" name="NewsId" />
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <label asp-for="FTitle" class="control-label">文章標題</label>
+                    <input asp-for="FTitle" class="form-control" readonly="readonly" />
+                    <span asp-validation-for="FTitle" class="text-danger"></span>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <label asp-for="FNewsCategoryId" class="control-label">專欄類別</label>
+                    <input asp-for="FNewsCategoryId" class="form-control" readonly="readonly">
+                    <span asp-validation-for="FNewsCategoryId" class="text-danger"></span>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <label asp-for="FMemberId" class="control-label">會員號碼</label>
+                    <input asp-for="FMemberId" class="form-control" readonly />
+                    <span asp-validation-for="FMemberId" class="text-danger"></span>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <label asp-for="FNewsDate" class="control-label">建立時間</label>
+                    <input asp-for="FNewsDate" class="form-control" value="@DateTime.Now.ToString("yyyy'/'MM'/'dd' - 'HH':'mm")" readonly />
+                    <span asp-validation-for="FNewsDate" class="text-danger"></span>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <label asp-for="FThumbnailPath" class="control-label"></label>
+                    <input asp-for="FThumbnailPath" class="form-control" readonly="readonly" />
+                    <span asp-validation-for="FThumbnailPath" class="text-danger"></span>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <label asp-for="FVideoUrl" class="control-label">影片連結</label>
+                    <input asp-for="FVideoUrl" class="form-control" readonly="readonly" />
+                    <span asp-validation-for="FVideoUrl" class="text-danger"></span>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <label class="control-label">專欄縮圖</label><br />
+                    <img src="~/img/blog/@Model.FThumbnailPath" width="200" height="120" />
+                </div>
+                <div class="col-lg-12 text-center">
+                    <label asp-for="FContent" class="control-label">文章內容</label>
+                    <textarea asp-for="FContent" readonly="readonly"></textarea>
+                    <span asp-validation-for="FContent" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <a asp-action="List" class="site-btn">返回列表</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

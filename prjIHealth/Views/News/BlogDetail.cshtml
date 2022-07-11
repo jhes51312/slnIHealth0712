@@ -1,0 +1,207 @@
+﻿@model TNews
+
+@section Styles{
+
+}
+@{ ViewData["Title"] = "BlogDetail";
+    Layout = "_Layout"; }
+
+<!-- Blog Details Hero Begin -->
+<section class="blog-details-hero set-bg" data-setbg="/img/details_hero.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="blog__details__hero__text">
+                    @*文章標題*@
+                    <h2>@Model.FTitle</h2>
+                    <ul>
+                        @*文章作者*@
+                        <li>By @Model.FMemberId</li>
+                        <li>@Model.FNewsDate.Substring(0, Math.Min(Model.FNewsDate.Length, 10))</li>
+                        @*文章日期*@
+                        <li>8 Comments</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--<section class="blog-details-hero set-bg" data-setbg="img/blog/details/details-hero.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="blog__details__hero__text">
+                    <h2></h2>-->
+<!--<ul>
+    <li>By </li>-->
+<!--<li></li>-->
+<!--<li>8 Comments</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>-->
+<!-- Blog Details Hero End -->
+<!-- Blog Details Section Begin -->
+<section class="blog-details spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-5 order-md-1 order-2">
+                <div class="blog__sidebar">
+                    <div class="blog__sidebar__search">
+                        <form action="#">
+                            <input type="text" placeholder="Search...">
+                            <button type="submit"><span class="icon_search"></span></button>
+                        </form>
+                    </div>
+                    <div class="blog__sidebar__item">
+                        <h4>專欄分類</h4>
+                        <ul>
+                            <li><a href="#">所有顯示 (55)</a></li>
+                            <li><a href="#">運動健身 (20)</a></li>
+                            <li><a href="#">食物營養 (15)</a></li>
+                            <li><a href="#">新冠疫情 (10)</a></li>
+                            <li><a href="#">教練專欄 (10)</a></li>
+                            <!--專欄分類使用處-->
+                        </ul>
+                    </div>
+                    <div class="blog__sidebar__item">
+                        <h4>近期專欄</h4>
+                        <div class="blog__sidebar__recent">
+                            <a href="#" class="blog__sidebar__recent__item">
+                                <div class="blog__sidebar__recent__item__pic">
+                                    <img src="img/blog/sidebar/sr-1.jpg" alt="">
+                                </div>
+                                <div class="blog__sidebar__recent__item__text">
+                                    <h6>09 Kinds Of Vegetables<br /> Protect The Liver</h6>
+                                    <span>MAR 05, 2019</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="blog__sidebar__item">
+                        <h4>快速搜尋</h4>
+                        <div class="blog__sidebar__item__tags">
+                            <a href="#">Fitness</a>
+                            <a href="#">Eat</a>
+                            <a href="#">COVID</a>
+                            <a href="#">Fit</a>
+                            <a href="#">Diet</a>
+                            <!--插入快速搜尋標籤-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-7 order-md-1 order-1">
+                <div class="blog__details__text">
+                    <img src="~/img/blog/@Model.FThumbnailPath" alt="">
+                    <input type="hidden" value="@Model.FNewsId" name="NewsId" />
+                    <p>
+                        @Html.Raw(@Model.FContent);
+                    </p>
+                    @*<h3>
+                            The corner window forms a place within a place that is a resting point within the large
+                            space.
+                        </h3>
+                        <p>
+                            The study area is located at the back with a view of the vast nature. Together with the other
+                            buildings, a congruent story has been managed in which the whole has a reinforcing effect on
+                            the components. The use of materials seeks connection to the main house, the adjacent
+                            stables
+                        </p>*@
+                </div>
+                <div class="blog__details__content">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="blog__details__author">
+                                <div class="blog__details__author__pic">
+                                    <img src="img/blog/details/details-author.jpg" alt="">@*會員大頭貼路徑*@
+                                </div>
+                                <div class="blog__details__author__text">
+                                    <h6>作者名稱</h6> @*@Model.FMemberId*@
+                                    <span>權限</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="blog__details__widget">
+                                <ul>
+                                    <li><span>文章分類:</span> Food</li>
+                                    <li><span>標籤:</span> All, Trending, Cooking, Healthy Food, Life Style</li>
+                                </ul>
+                                <div class="blog__details__social">
+                                    <a href="#"><i class="fa fa-facebook"></i></a>
+                                    <a href="#"><i class="fa fa-twitter"></i></a>
+                                    <a href="#"><i class="fa fa-google-plus"></i></a>
+                                    <a href="#"><i class="fa fa-linkedin"></i></a>
+                                    <a href="#"><i class="fa fa-envelope"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Blog Details Section End -->
+<!-- Related Blog Section Begin -->
+<section class="related-blog spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-title related-blog-title">
+                    <h2>您可能會喜歡的文章</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-6">
+                <div class="blog__item">
+                    <div class="blog__item__pic">
+                        <img src="img/blog/blog-1.jpg" alt="">
+                    </div>
+                    <div class="blog__item__text">
+                        <ul>
+                            <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
+                            <li><i class="fa fa-comment-o"></i> 5</li>
+                        </ul>
+                        <h5><a href="#">Cooking tips make cooking simple</a></h5>
+                        <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam quaerat </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-6">
+                <div class="blog__item">
+                    <div class="blog__item__pic">
+                        <img src="img/blog/blog-2.jpg" alt="">
+                    </div>
+                    <div class="blog__item__text">
+                        <ul>
+                            <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
+                            <li><i class="fa fa-comment-o"></i> 5</li>
+                        </ul>
+                        <h5><a href="#">6 ways to prepare breakfast for 30</a></h5>
+                        <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam quaerat </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-6">
+                <div class="blog__item">
+                    <div class="blog__item__pic">
+                        <img src="img/blog/blog-3.jpg" alt="">
+                    </div>
+                    <div class="blog__item__text">
+                        <ul>
+                            <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
+                            <li><i class="fa fa-comment-o"></i> 5</li>
+                        </ul>
+                        <h5><a href="#">Visit the clean farm in the US</a></h5>
+                        <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam quaerat </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

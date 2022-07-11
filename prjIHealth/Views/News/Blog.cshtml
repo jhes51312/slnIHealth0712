@@ -1,0 +1,139 @@
+﻿@model IEnumerable<prjIHealth.Models.TNews>
+
+@section Styles{
+
+}
+@{ ViewData["Title"] = "Blog"; }
+
+<!-- Breadcrumb Section Begin -->
+<section class="breadcrumb-section set-bg" data-setbg="/img/breadcrumb.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="breadcrumb__text">
+                    <h2>BlogDemo</h2>
+                    <div class="breadcrumb__option">
+                        <a href="./index.html">Home</a>
+                        <span>專欄一覽</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Section End -->
+
+<section class="blog spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-5">
+                <div class="blog__sidebar">
+                    <div class="blog__sidebar__search">
+                        <form action="#">
+                            <input type="text" placeholder="Search..." @Html.TextBox("txtKeyword")
+                            <button type="submit"><span class="icon_search"></span></button>
+                        </form>
+                    </div>
+                    <div class="blog__sidebar__item">
+                        <h4>專欄分類</h4>
+                        <ul>
+                            <li><a href="#">所有顯示 (55)</a></li>
+                            <li><a href="#">運動健身 (20)</a></li>
+                            <li><a href="#">食物營養 (15)</a></li>
+                            <li><a href="#">新冠疫情 (10)</a></li>
+                            <li><a href="#">教練專欄 (10)</a></li>
+                            <!--專欄分類使用處-->
+                        </ul>
+                    </div>
+                    <div class="blog__sidebar__item">
+                        <h4>近期專欄</h4>
+                        <div class="blog__sidebar__recent">
+                            <a href="#" class="blog__sidebar__recent__item">
+                                <div class="blog__sidebar__recent__item__pic">
+                                    <img src="img/blog/sidebar/sr-1.jpg" alt="">
+                                </div>
+                                <div class="blog__sidebar__recent__item__text">
+                                    <h6>09 Kinds Of Vegetables<br /> Protect The Liver</h6>
+                                    <span>MAR 05, 2019</span>
+                                </div>
+                            </a>
+                            <!--近期專欄使用處-->
+                        </div>
+                    </div>
+                    <div class="blog__sidebar__item">
+                        <h4>快速搜尋</h4>
+                        <div class="blog__sidebar__item__tags">
+                            <a href="#">Fitness</a>
+                            <a href="#">Eat</a>
+                            <a href="#">COVID</a>
+                            <a href="#">Fit</a>
+                            <a href="#">Diet</a>
+                            <!--插入快速搜尋標籤-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-7">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="blog__item">
+                            <div class="blog__item__pic">
+                                <img src="~/img//blog/1.png" alt="">
+                            </div>
+                            <div class="blog__item__text">
+                                <ul>
+                                    @*日期和回應數*@
+                                    <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
+                                    <li><i class="fa fa-comment-o"></i> 5</li>
+                                </ul>
+                                @*下方插入H5標題*@
+                                <h5><a href="#">COVID-19／今本土＋32567、198 中重症、88 死亡！新增 2 例兒童 MIS-C 重症個案</a></h5>
+                                @* 下方顯示預覽內容 *@
+                                <p>
+                                    指揮中心今宣布新增 32,567 例本土個案，及 114 例境外移入。而中重症今天新增 198 例，其中 88......
+                                </p>
+                                <a href="#" class="blog__btn">READ MORE <span class="arrow_right"></span></a>
+                            </div>
+                        </div>
+                    </div>
+                    @{ //測試迴圈顯示
+                                    foreach (var item in Model)
+                                    {
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="blog__item">
+                                <div class="blog__item__pic">
+                                    <img src="~/img/blog/@item.FThumbnailPath" />@*圖片路徑*@
+                                </div>
+                                <div class="blog__item__text">
+                                    <ul>
+                                        <li><i class="fa fa-calendar-o"></i>@item.FNewsDate</li>
+                                        @*日期*@
+                                        <li><i class="fa fa-comment-o"></i> 5</li>
+                                    </ul>
+                                    <h5><a href="#">@Html.DisplayFor(modelItem => item.FTitle)</a></h5>
+                                    <p>
+                                        @*@Html.DisplayFor(modelItem => item.FNewsContent.Substring(0,29))*@
+                                        @*@item.FNewsContent.Substring(0, item.FNewsContent.Length > 20 ? 20 : item.FNewsContent.Length)*@
+                                        @item.FContent.Substring(0, Math.Min(item.FContent.Length, 30))
+                                    </p>
+                                    <a @Html.ActionLink("READ MORE", "BlogDetail", new { id = item.FNewsId }, new { @class = "blog__btn" })></a>
+                                    @*<span class="arrow_right"></span>*@
+                                    @* //<a asp-action="BlogDetail" class="blog__btn">READ MORE <span class="arrow_right"></span></a> *@
+                                </div>
+                            </div>
+                        </div> } }
+                    @*BLOG專欄一覽位置*@
+                    <div class="col-lg-12">
+                        <div class="product__pagination blog__pagination">
+                            <a href="#">1</a>
+                            <a href="#">2</a>
+                            <a href="#">3</a>
+                            <a href="#"><i class="fa fa-long-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Blog Section End -->

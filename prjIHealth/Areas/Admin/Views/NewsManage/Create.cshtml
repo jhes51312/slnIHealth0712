@@ -1,0 +1,168 @@
+﻿@model prjIHealth.Models.TNews
+
+@{
+    ViewData["Title"] = "iHeath後臺";
+    Layout = "~/Areas/Admin/Admin_Layout.cshtml";
+}
+
+
+<div class="contact-form spad" >
+    <div class="container" style="height:100%">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="contact__form__title">
+                    <h2>建立文章</h2>
+                </div>
+            </div>
+        </div>
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <label asp-for="FTitle" class="control-label">文章標題</label>
+                    <input asp-for="FTitle" class="form-control" placeholder="請輸入標題" />
+                    <span asp-validation-for="FTitle" class="text-danger"></span>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <label asp-for="FNewsCategoryId" class="control-label">專欄類別</label><br />
+                    <select asp-for="FNewsCategoryId" class="form-select" style="height:55px">
+                        <option selected="">請選取此處</option>
+                        <option value="1">運動健身</option>
+                        <option value="2">食物營養</option>
+                        <option value="3">新冠疫情</option>
+                        <option value="4">教練專欄</option>
+                    </select>
+                    <span asp-validation-for="FNewsCategoryId" class="text-danger"></span>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <label asp-for="FMemberId" class="control-label">會員號碼</label>
+                    <input asp-for="FMemberId" class="form-control" readonly />
+                    <span asp-validation-for="FMemberId" class="text-danger"></span>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <label asp-for="FNewsDate" class="control-label">建立時間</label>
+                    <input asp-for="FNewsDate" class="form-control" value="@DateTime.Now.ToString("yyyy'/'MM'/'dd' - 'HH':'mm")" readonly />
+                    <span asp-validation-for="FNewsDate" class="text-danger"></span>
+                </div>
+
+                <div class="col-lg-6 col-md-6">
+                    <label class="control-label">專欄縮圖（待解決施工中）</label>
+                    <input type="file" name="photo" class="form-control" />
+                    @*<div>
+                            <div class="form-group">
+                                <div class="col-md-10">
+                                    <p>Upload one or more files using this form:</p>
+                                    <input type="file" name="files" multiple />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-10">
+                                    <input type="submit" value="Upload" />
+                                </div>
+                            </div>
+                        </div>*@
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <label asp-for="FThumbnailPath" class="control-label"></label>
+                    <input asp-for="FThumbnailPath" class="form-control" />
+                    <span asp-validation-for="FThumbnailPath" class="text-danger"></span>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <label asp-for="FVideoUrl" class="control-label">影片連結</label>
+                    <input asp-for="FVideoUrl" class="form-control" placeholder="請輸入影片網址" />
+                    <span asp-validation-for="FVideoUrl" class="text-danger"></span>
+                </div>
+                <div class="col-lg-12 text-center">
+                    <label asp-for="FContent" class="control-label">文章內容</label>
+                    @*<textarea asp-for="FNewsContent" placeholder="請輸入內容"></textarea>*@
+                    <textarea id="editor" asp-for="FContent" class="form-control" placeholder="請輸入內容" style="height:300px"></textarea>
+                    <span asp-validation-for="FContent" class="text-danger"></span>
+                </div>
+            </div>
+            <div style="margin-right:90% ; margin-top:40px">
+                <p>
+                    <input type="submit" class="site-btn" value="建立專欄" style="width:150px" />
+                </p>
+                <p>
+                    <a asp-action="List" class="site-btn" style="width:150px">返回列表</a>
+                </p>
+            </div>
+        </form>
+    </div>
+</div>
+
+@* <form method="post" enctype="multipart/form-data" asp-controller="FileUpload" asp-action="Index"> *@
+@* </form> *@
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#editor'))
+            .then(editor => {
+                console.log(editor);
+            })
+    </script>
+}
+
+@*<script runat="server">
+
+            protected void UploadButton_Click(object sender, EventArgs e)
+            {
+                // Before attempting to save the file, verify
+                // that the FileUpload control contains a file.
+                if (FileUpload1.HasFile)
+                    // Call a helper method routine to save the file.
+                    SaveFile(FileUpload1.PostedFile);
+                else
+                    // Notify the user that a file was not uploaded.
+                    UploadStatusLabel.Text = "You did not specify a file to upload.";
+            }
+
+            void SaveFile(HttpPostedFile file)
+            {
+                // Specify the path to save the uploaded file to.
+                string savePath = "c:\\temp\\uploads\\";
+
+                // Get the name of the file to upload.
+                string fileName = FileUpload1.FileName;
+
+                // Create the path and file name to check for duplicates.
+                string pathToCheck = savePath + fileName;
+
+                // Create a temporary file name to use for checking duplicates.
+                string tempfileName = "";
+
+                // Check to see if a file already exists with the
+                // same name as the file to upload.
+                if (System.IO.File.Exists(pathToCheck)) {
+                    int counter = 2;
+                    while (System.IO.File.Exists(pathToCheck)) {
+                        // if a file with this name already exists,
+                        // prefix the filename with a number.
+                        tempfileName = counter.ToString() + fileName;
+                        pathToCheck = savePath + tempfileName;
+                        counter++;
+                    }
+
+                    fileName = tempfileName;
+
+                    // Notify the user that the file name was changed.
+                    UploadStatusLabel.Text = "A file with the same name already exists." +
+                        "<br />Your file was saved as " + fileName;
+                }
+                else {
+                    // Notify the user that the file was saved successfully.
+                    UploadStatusLabel.Text = "Your file was uploaded successfully.";
+                }
+
+                // Append the name of the file to upload to the path.
+                savePath += fileName;
+
+                // Call the SaveAs method to save the uploaded
+                // file to the specified directory.
+                FileUpload1.SaveAs(savePath);
+
+            }
+
+    </script>*@

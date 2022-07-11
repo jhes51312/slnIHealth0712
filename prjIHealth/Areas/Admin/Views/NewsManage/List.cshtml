@@ -1,0 +1,120 @@
+﻿@*@model IEnumerable<prjiHealth.Models.TNews>*@
+@using X.PagedList
+@using X.PagedList.Mvc.Core
+@model IPagedList<prjIHealth.Models.TNews>
+
+@section Styles{
+    <link href="/css/PagedList.css" rel="stylesheet" />
+}
+@{ ViewData["Title"] = "iHeath後臺";
+                Layout = "~/Areas/Admin/Admin_Layout.cshtml"; }
+
+<h1>管理頁Demo</h1>
+
+<section class="product spad">
+    <div class="container">
+        <div style="margin-right:90%">
+            <div>
+                <a asp-action="Create" class="primary-btn" style="width:150px">新增專欄</a>
+            </div>
+            <div>
+                <a asp-action="Blog" class="primary-btn" style="width:150px">專欄顯示</a>
+            </div>
+            @*<div>
+                @using (Html.BeginForm())
+                {
+    @:關鍵字 @Html.TextBox("txtKeyword")
+    <input type="submit" value="輸入查詢" class="form-control" style="width:150px" />}
+            </div>*@
+        </div>
+        @*※※※非會員專區的View的內容請從此處開始※※※*@
+        <div class="row">
+            <div>
+                <table class="table">
+                    <thead>
+                        <tr style="margin-left:auto">
+                            @*<th>
+                                    @Html.DisplayNameFor(model => model.FNewsId)
+                                </th>*@
+                            <th style="margin-left:auto">
+                                標題@*@Html.DisplayNameFor(model => model.FNewsTitle)*@
+                            </th>
+                            <th style="margin-left:auto">
+                                時間@*@Html.DisplayNameFor(model => model.FNewsDate)*@
+                            </th>
+                            <th style="margin-left:auto">
+                                內容@*@Html.DisplayNameFor(model => model.FNewsContent)*@
+                            </th>
+                            <th style="margin-left:auto">
+                                縮圖@*@Html.DisplayNameFor(model => model.FNewsThumbnailImage)*@
+                            </th>
+                            <th style="margin-left:auto">
+                                類別@*@Html.DisplayNameFor(model => model.FCategoryId)*@
+                            </th>
+                            <th style="margin-left:auto">
+                                @*@Html.DisplayNameFor(model => model.FNewsCount)*@
+                            </th>
+                            <th style="margin-left:auto">
+                                影片連結@*@Html.DisplayNameFor(model => model.FNewsVideoUrl)*@
+                            </th>
+                            <th style="margin-left:auto">
+                                會員號碼@*@Html.DisplayNameFor(model => model.FMemberId)*@
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+            <tr>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.FNewsId)
+                    </td>*@
+                <td>
+                    @item.FTitle.Substring(0, Math.Min(item.FTitle.Length, 10))
+                </td>
+                <td>
+                    @item.FNewsDate.Substring(0, Math.Min(item.FNewsDate.Length, 10))
+                </td>
+                <td>
+                    @*@Html.DisplayFor(modelItem => item.FNewsContent.Substring(0, 29))*@
+                    @Html.Raw(@item.FContent.Substring(0, Math.Min(item.FContent.Length, 10)))
+                </td>
+                <td>
+                    <img src="~/img/blog/@item.FThumbnailPath" width="100" height="80" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FNewsCategoryId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FViews)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FVideoUrl)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FMemberId)
+                </td>
+                <td>
+                    @Html.ActionLink("編輯", "Edit", new { id = item.FNewsId }, new { @class = "primary-btn" })
+                    <br />
+                    @Html.ActionLink("詳細", "Detail", new { id = item.FNewsId }, new { @class = "primary-btn" })
+                    <br />
+                    @Html.ActionLink("刪除", "Delete", new { id = item.FNewsId },
+                              new { onclick = "return confirm('確定要刪除嗎?')", @class = "primary-btn" })
+                </td>
+            </tr>
+}
+                    </tbody>
+                </table>
+                @*<div class="product__pagination" style="text-align:center">
+                        <a href="#">1</a>
+                        <a href="#">2</a>
+                        <a href="#">3</a>
+                    </div>*@
+                @Html.PagedListPager(Model, page => Url.Action("List", new { page }))
+            </div>
+        </div>
+    </div>
+</section>
+
